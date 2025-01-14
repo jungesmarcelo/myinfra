@@ -1,0 +1,31 @@
+#proxmox
+
+update VM 102: -agent 0 -bios seabios -boot cdn -cores 2 -cpu host -delete balloon, vcpus, vga -hotplug network,disk,usb -kvm 1 -memory 2048 -name my-vm -numa 0 -onboot 1 -sockets 1 -virtio0 local-lvm:0
+cannot delete 'balloon' - not set in current configuration!
+cannot delete 'vcpus' - not set in current configuration!
+cannot delete 'vga' - not set in current configuration!
+  --virtualsize may not be zero.
+TASK ERROR: lvcreate 'pve/vm-102-disk-1' error:   Run `lvcreate --help' for more information.
+
+
+#Terraform
+
+╷
+│ Warning: Deprecated Attribute
+│ 
+│   with proxmox_vm_qemu.my_vm,
+│   on main.tf line 21, in resource "proxmox_vm_qemu" "my_vm":
+│   21:   storage    = "local-lvm"
+│ 
+│ Use `disk.storage` instead
+╵
+╷
+│ Error: Proxmox does not support decreasing disk size. Disk 'virtio0' wanted to go from '16G' to '0G'
+│ 
+│   with proxmox_vm_qemu.my_vm,
+│   on main.tf line 17, in resource "proxmox_vm_qemu" "my_vm":
+│   17: resource "proxmox_vm_qemu" "my_vm" {
+│ 
+╵
+
+
